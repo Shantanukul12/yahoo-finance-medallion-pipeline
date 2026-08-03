@@ -70,7 +70,5 @@ text
 
 Shantanu Kulkarni
 
-## License
 
-MIT
 
