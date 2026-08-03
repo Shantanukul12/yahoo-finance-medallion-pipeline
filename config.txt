@@ -1,4 +1,4 @@
-#you can copy your secret keys from your Azure or AWS account
+#you can copy your secret keys from your Azure or AWS account and create a separate notebook in databricks as below 
 # config notebook
 TENANT_ID = "your-tenant-id"
 CLIENT_ID = "your-client-id"
