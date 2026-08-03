@@ -1,0 +1,492 @@
+{
+  "datasets": [
+    {
+      "name": "stock_summary",
+      "displayName": "Stock Summary Data",
+      "queryLines": [
+        "SELECT\n",
+        "  *\n",
+        "FROM\n",
+        "  stock_exchange_api_catalog.gold.gold_summary"
+      ],
+      "catalog": "stock_exchange_api_catalog",
+      "schema": "gold"
+    }
+  ],
+  "pages": [
+    {
+      "name": "243e31da",
+      "displayName": "Stock Summary",
+      "layout": [
+        {
+          "widget": {
+            "name": "stock_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "stock_summary",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "exchange",
+                      "expression": "`exchange`"
+                    },
+                    {
+                      "name": "current_price",
+                      "expression": "`current_price`"
+                    },
+                    {
+                      "name": "avg_price",
+                      "expression": "`avg_price`"
+                    },
+                    {
+                      "name": "min_price",
+                      "expression": "`min_price`"
+                    },
+                    {
+                      "name": "max_price",
+                      "expression": "`max_price`"
+                    },
+                    {
+                      "name": "volatility",
+                      "expression": "`volatility`"
+                    },
+                    {
+                      "name": "total_volume",
+                      "expression": "`total_volume`"
+                    },
+                    {
+                      "name": "avg_volume",
+                      "expression": "`avg_volume`"
+                    },
+                    {
+                      "name": "turnover_ratio",
+                      "expression": "`turnover_ratio`"
+                    },
+                    {
+                      "name": "trading_minutes",
+                      "expression": "`trading_minutes`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Stock Summary Table",
+                "showTitle": true
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "symbol"
+                  },
+                  {
+                    "fieldName": "exchange"
+                  },
+                  {
+                    "fieldName": "current_price"
+                  },
+                  {
+                    "fieldName": "avg_price"
+                  },
+                  {
+                    "fieldName": "min_price"
+                  },
+                  {
+                    "fieldName": "max_price"
+                  },
+                  {
+                    "fieldName": "volatility"
+                  },
+                  {
+                    "fieldName": "total_volume"
+                  },
+                  {
+                    "fieldName": "avg_volume"
+                  },
+                  {
+                    "fieldName": "turnover_ratio"
+                  },
+                  {
+                    "fieldName": "trading_minutes"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "stock_count",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "stock_summary",
+                  "fields": [
+                    {
+                      "name": "count(symbol)",
+                      "expression": "COUNT(`symbol`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Stocks",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "count(symbol)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "avg_price_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "stock_summary",
+                  "fields": [
+                    {
+                      "name": "avg(current_price)",
+                      "expression": "AVG(`current_price`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Average Price",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(current_price)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 6,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "total_volume_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "stock_summary",
+                  "fields": [
+                    {
+                      "name": "sum(total_volume)",
+                      "expression": "SUM(`total_volume`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Trading Volume",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_volume)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "avg_volatility",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "stock_summary",
+                  "fields": [
+                    {
+                      "name": "avg(volatility)",
+                      "expression": "AVG(`volatility`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Average Volatility",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(volatility)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 6,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "price_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "stock_summary",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "sum(current_price)",
+                      "expression": "SUM(`current_price`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Stocks by Current Price",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(current_price)",
+                  "displayName": "current_price",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "volume_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "stock_summary",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "sum(total_volume)",
+                      "expression": "SUM(`total_volume`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Stocks by Total Volume",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_volume)",
+                  "displayName": "total_volume",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "996a0594",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "7dacc31c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "stock_summary",
+                  "fields": [
+                    {
+                      "name": "sum(avg_price)",
+                      "expression": "SUM(`avg_price`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "target": {
+                  "fieldName": "sum(avg_price)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 7,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}

@@ -1,0 +1,631 @@
+{
+  "datasets": [
+    {
+      "name": "dataset1",
+      "displayName": "Stock Performance Metrics",
+      "config": {
+        "version": "1.1",
+        "source": "stock_exchange_api_catalog.gold.gold_summary",
+        "dimensions": [
+          {
+            "name": "symbol",
+            "expr": "symbol"
+          },
+          {
+            "name": "exchange",
+            "expr": "exchange"
+          },
+          {
+            "name": "currency",
+            "expr": "currency"
+          },
+          {
+            "name": "trading_minutes",
+            "expr": "trading_minutes"
+          }
+        ],
+        "measures": [
+          {
+            "name": "current_price",
+            "expr": "SUM(current_price)",
+            "displayName": "Current Price"
+          },
+          {
+            "name": "avg_price",
+            "expr": "SUM(avg_price)",
+            "displayName": "Average Price"
+          },
+          {
+            "name": "min_price",
+            "expr": "SUM(min_price)",
+            "displayName": "Min Price"
+          },
+          {
+            "name": "max_price",
+            "expr": "SUM(max_price)",
+            "displayName": "Max Price"
+          },
+          {
+            "name": "price_range",
+            "expr": "SUM(max_price - min_price)",
+            "displayName": "Price Range",
+            "comment": "Difference between max and min price"
+          },
+          {
+            "name": "price_change_pct",
+            "expr": "SUM((current_price - avg_price) / avg_price * 100)",
+            "displayName": "Price Change %",
+            "comment": "Percentage change from average to current price"
+          },
+          {
+            "name": "volatility",
+            "expr": "SUM(volatility)",
+            "displayName": "Volatility"
+          },
+          {
+            "name": "total_volume",
+            "expr": "SUM(total_volume)",
+            "displayName": "Total Volume"
+          },
+          {
+            "name": "avg_volume",
+            "expr": "SUM(avg_volume)",
+            "displayName": "Average Volume"
+          },
+          {
+            "name": "volume_per_minute",
+            "expr": "SUM(total_volume / trading_minutes)",
+            "displayName": "Volume Per Minute",
+            "comment": "Average trading volume per minute"
+          },
+          {
+            "name": "turnover_ratio",
+            "expr": "SUM(turnover_ratio)",
+            "displayName": "Turnover Ratio"
+          },
+          {
+            "name": "market_value",
+            "expr": "SUM(current_price * total_volume)",
+            "displayName": "Market Value",
+            "comment": "Total market value traded"
+          },
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "page1",
+      "displayName": "New Page",
+      "layout": [
+        {
+          "widget": {
+            "name": "market_value_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset1",
+                  "fields": [
+                    {
+                      "name": "measure(market_value)",
+                      "expression": "MEASURE(`market_value`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Market Value",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(market_value)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "volume_per_min_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset1",
+                  "fields": [
+                    {
+                      "name": "measure(volume_per_minute)",
+                      "expression": "MEASURE(`volume_per_minute`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Average Volume/Min",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(volume_per_minute)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "price_range_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset1",
+                  "fields": [
+                    {
+                      "name": "measure(price_range)",
+                      "expression": "MEASURE(`price_range`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Price Range",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(price_range)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "price_change_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset1",
+                  "fields": [
+                    {
+                      "name": "measure(price_change_pct)",
+                      "expression": "MEASURE(`price_change_pct`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Avg Price Change %",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(price_change_pct)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "price_range_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset1",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "measure(price_range)",
+                      "expression": "MEASURE(`price_range`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Price Range by Stock",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(price_range)",
+                  "displayName": "price_range",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "price_change_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset1",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "measure(price_change_pct)",
+                      "expression": "MEASURE(`price_change_pct`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Price Change % by Stock",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(price_change_pct)",
+                  "displayName": "price_change_pct",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "market_value_pie",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset1",
+                  "fields": [
+                    {
+                      "name": "measure(market_value)",
+                      "expression": "MEASURE(`market_value`)"
+                    },
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Market Value by Stock",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "measure(market_value)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "market_value"
+                },
+                "color": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "efficiency_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset1",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "measure(volume_per_minute)",
+                      "expression": "MEASURE(`volume_per_minute`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Trading Efficiency (Volume/Min)",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(volume_per_minute)",
+                  "displayName": "volume_per_minute",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "symbol",
+                  "displayName": "symbol",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "summary_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset1",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "exchange",
+                      "expression": "`exchange`"
+                    },
+                    {
+                      "name": "measure(current_price)",
+                      "expression": "MEASURE(`current_price`)"
+                    },
+                    {
+                      "name": "measure(price_change_pct)",
+                      "expression": "MEASURE(`price_change_pct`)"
+                    },
+                    {
+                      "name": "measure(price_range)",
+                      "expression": "MEASURE(`price_range`)"
+                    },
+                    {
+                      "name": "measure(volume_per_minute)",
+                      "expression": "MEASURE(`volume_per_minute`)"
+                    },
+                    {
+                      "name": "measure(market_value)",
+                      "expression": "MEASURE(`market_value`)"
+                    },
+                    {
+                      "name": "measure(turnover_ratio)",
+                      "expression": "MEASURE(`turnover_ratio`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Performance Summary",
+                "showTitle": true
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "symbol"
+                  },
+                  {
+                    "fieldName": "exchange"
+                  },
+                  {
+                    "fieldName": "measure(current_price)"
+                  },
+                  {
+                    "fieldName": "measure(price_change_pct)"
+                  },
+                  {
+                    "fieldName": "measure(price_range)"
+                  },
+                  {
+                    "fieldName": "measure(volume_per_minute)"
+                  },
+                  {
+                    "fieldName": "measure(market_value)"
+                  },
+                  {
+                    "fieldName": "measure(turnover_ratio)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 12,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
