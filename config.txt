@@ -1,3 +1,4 @@
+#you can copy your secret keys from your Azure or AWS account
 # config notebook
 TENANT_ID = "your-tenant-id"
 CLIENT_ID = "your-client-id"
